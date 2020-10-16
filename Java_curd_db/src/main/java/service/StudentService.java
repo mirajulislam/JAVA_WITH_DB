@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import connectionDb.DbConnection;
 import dao.StudentDao;
 import model.Student;
@@ -25,6 +27,7 @@ public class StudentService implements StudentDao {
 
 	DbConnection dbConnection = new DbConnection();
 	Connection connection = dbConnection.getConnect();
+	static Logger logger = Logger.getLogger(StudentService.class);
 
 	public List<Student> getAllStudent() throws SQLException {
 		List<Student> studentList = new ArrayList<Student>();
@@ -51,6 +54,7 @@ public class StudentService implements StudentDao {
 		PreparedStatement ps = connection.prepareStatement(query);
 		ps.setInt(1, student_id);
 		ps.executeUpdate();
+		logger.debug("Delete Successfully Student Id : "+student_id);		 
 	}
 
 	public void updateStudent(Student student) throws SQLException {
@@ -59,6 +63,7 @@ public class StudentService implements StudentDao {
 		ps.setInt(1, student.getAge());
 		ps.setInt(2, student.getStudent_id());
 		ps.executeUpdate();
+		logger.debug("Delete Successfully : ");
 	}
 
 	public void insertStudent(List<Student> list) throws SQLException {
@@ -77,6 +82,7 @@ public class StudentService implements StudentDao {
 			statement.setString(5, student.getAddress());
 			statement.setString(6, formatter.format(date));
 			statement.executeUpdate();
+			logger.debug("Insert Successfully : ");
 		}
 	}
 
@@ -97,6 +103,7 @@ public class StudentService implements StudentDao {
 			std.setAddress(result.getString("address"));
 			std.setMobile(result.getString("mobile"));
 			std.setDate(result.getDate("Date"));
+			logger.debug("Select Data : ");
 		}
 		if (check == true) {
 			return std;

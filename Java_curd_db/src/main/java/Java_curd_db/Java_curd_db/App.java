@@ -4,11 +4,10 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import model.Student;
 import service.StudentService;
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
 
 /**
  * Hello world!
@@ -16,9 +15,10 @@ import service.StudentService;
  */
 public class App 
 {
-	private static Logger logger =LogManager.getLogger(App.class);
+	static Logger logger = Logger.getLogger(App.class);
     public static void main( String[] args )throws SQLException
     {
+    	DOMConfigurator.configure("log4j.xml");
     	StudentService std=new StudentService();
 		List<Student> listStudent =std.getAllStudent();
 		Student stdt=std.getStudent(1001);	
@@ -26,7 +26,7 @@ public class App
 //		    System.out.println(leave.getAddress());
 //		}
 //    	logger.error("student data"+Arrays.toString(listStudent.toArray()));
-//    	logger.error(""+" "+stdt.getStudent_id()+" "+ stdt.getStudent_name()+" "+stdt.getAge()+" "+stdt.getMobile()+" "+stdt.getAddress()+" "+stdt.getDate());
-
+//    	logger.error(""+" "+stdt.getStudent_id()+" "+ stdt.getStudent_name()+" "+stdt.getAge()+" "+stdt.getMobile()+" "+stdt.getAddress()+" "+stdt.getDate());		
+		 
     }
 }
