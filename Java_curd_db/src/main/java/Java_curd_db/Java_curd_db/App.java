@@ -26,7 +26,7 @@ public class App
 //		    System.out.println(leave.getAddress());
 //		}
 //    	logger.error("student data"+Arrays.toString(listStudent.toArray()));
-    	logger.error(""+" "+stdt.getStudent_id()+" "+ stdt.getStudent_name()+" "+stdt.getAge()+" "+stdt.getMobile()+" "+stdt.getAddress()+" "+stdt.getDate());
+//    	logger.error(""+" "+stdt.getStudent_id()+" "+ stdt.getStudent_name()+" "+stdt.getAge()+" "+stdt.getMobile()+" "+stdt.getAddress()+" "+stdt.getDate());
 
     }
 }
