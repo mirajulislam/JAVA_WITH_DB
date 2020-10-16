@@ -14,10 +14,10 @@ import model.Student;
  *
  */
 public interface StudentDao {
-	 public  List<Student>  getAllStudent();
-	 public void deleteStudent(Integer student_id);	  
-	 public int updateStudent(Student student);	 
+	 public  List<Student>  getAllStudent()throws SQLException;
+	 public void deleteStudent(Integer student_id)throws SQLException;	  
+	 public void updateStudent(Student student)throws SQLException;	 
 	 public void insertStudent(List<Student> list) throws SQLException;	 
-	 public Student getStudent(int student_id);
+	 public Student getStudent(int student_id)throws SQLException;
 
 }

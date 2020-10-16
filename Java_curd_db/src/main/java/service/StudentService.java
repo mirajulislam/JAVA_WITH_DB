@@ -21,65 +21,55 @@ import model.Student;
  * @author mirajul.islam
  *
  */
-public class StudentService implements StudentDao{
-	DbConnection dbConnection = new DbConnection();
-	Connection connection=dbConnection.getConnect();
+public class StudentService implements StudentDao {
 
-	public List<Student> getAllStudent() {
+	DbConnection dbConnection = new DbConnection();
+	Connection connection = dbConnection.getConnect();
+
+	public List<Student> getAllStudent() throws SQLException {
 		List<Student> studentList = new ArrayList<Student>();
 		String sql = "SELECT * FROM t_student";
-//		dbConnection.getConnect();		 
 		Statement statement;
-		try {
-			statement = connection.createStatement();
-			ResultSet result = statement.executeQuery(sql);
-			while (result.next()){
-				int student_id=result.getInt("student_id");
-			    String student_name = result.getString("student_name");
-			    int age=result.getInt("age");
-			    String mobile = result.getString("mobile");	
-			    String address=result.getString("address");			   	
-			    Date date =result.getDate("Date");
-			    Student std=new Student(student_id, student_name, age, mobile, address, date);
-			    studentList.add(std);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		statement = connection.createStatement();
+		ResultSet result = statement.executeQuery(sql);
+		while (result.next()) {
+			Student std = new Student();
+			std.setStudent_id(result.getInt("student_id"));
+			std.setStudent_name(result.getString("student_name"));
+			std.setAge(result.getInt("age"));
+			std.setAddress(result.getString("address"));
+			std.setMobile(result.getString("mobile"));
+			std.setDate(result.getDate("Date"));
+			studentList.add(std);
 		}
-	
-		// TODO Auto-generated method stub
+
 		return studentList;
 	}
 
-	/* (non-Javadoc)
-	 * @see dao.StudentDao#deleteStudent(java.lang.Integer)
-	 */
-	public void deleteStudent(Integer student_id) {
-		// TODO Auto-generated method stub
-		
+	public void deleteStudent(Integer student_id) throws SQLException {
+		String query = "delete from t_student where student_id =?";
+		PreparedStatement ps = connection.prepareStatement(query);
+		ps.setInt(1, student_id);
+		ps.executeUpdate();
 	}
 
-	/* (non-Javadoc)
-	 * @see dao.StudentDao#updateStudent(model.Student)
-	 */
-	public int updateStudent(Student student) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void updateStudent(Student student) throws SQLException {
+		String query = "update t_student set age=? where student_id = ?";
+		PreparedStatement ps = connection.prepareStatement(query);
+		ps.setInt(1, student.getAge());
+		ps.setInt(2, student.getStudent_id());
+		ps.executeUpdate();
 	}
 
-	/* (non-Javadoc)
-	 * @see dao.StudentDao#insertStudent(model.Student)
-	 */
 	public void insertStudent(List<Student> list) throws SQLException {
-		
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
-	    Date date = new Date();  
-	    
-		String sql="INSERT INTO t_student(student_id,student_name,age,mobile,address,date) values(?,?,?,?,?,?)";	
-		PreparedStatement  statement=connection.prepareStatement(sql);
-		
-		for(Student student:list) {
+
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+
+		String sql = "INSERT INTO t_student(student_id,student_name,age,mobile,address,date) values(?,?,?,?,?,?)";
+		PreparedStatement statement = connection.prepareStatement(sql);
+
+		for (Student student : list) {
 			statement.setInt(1, student.getStudent_id());
 			statement.setString(2, student.getStudent_name());
 			statement.setInt(3, student.getAge());
@@ -90,12 +80,27 @@ public class StudentService implements StudentDao{
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see dao.StudentDao#getStudent(int)
-	 */
-	public Student getStudent(int student_id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Student getStudent(int student_id) throws SQLException {
+		String sql = "SELECT * FROM t_student where student_id=?";
+		PreparedStatement ps = null;
+		ResultSet result = null;
+		ps = connection.prepareStatement(sql);
+		ps.setInt(1, student_id);
+		result = ps.executeQuery();
+		boolean check = false;
+		Student std = new Student();
+		while (result.next()) {
+			check = true;
+			std.setStudent_id(result.getInt("student_id"));
+			std.setStudent_name(result.getString("student_name"));
+			std.setAge(result.getInt("age"));
+			std.setAddress(result.getString("address"));
+			std.setMobile(result.getString("mobile"));
+			std.setDate(result.getDate("Date"));
+		}
+		if (check == true) {
+			return std;
+		} else
+			return null;
 	}
-	
 }

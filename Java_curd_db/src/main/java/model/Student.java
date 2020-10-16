@@ -16,27 +16,7 @@ public class Student {
 	private Integer age;
 	private String mobile;
 	private String address;
-	private Date date;
-	
-	
-	
-	public Student(Integer student_id, String student_name, Integer age, String mobile, String address, Date date) {
-		super();
-		this.student_id = student_id;
-		this.student_name = student_name;
-		this.age = age;
-		this.mobile = mobile;
-		this.address = address;
-		this.date = date;
-	}
-	
-	public Student(Integer student_id,String student_name, Integer age, String mobile, String address) {
-		this.student_id = student_id;
-		this.student_name = student_name;
-		this.age = age;
-		this.mobile = mobile;
-		this.address = address;
-	}
+	private Date date;	
 
 	public String getStudent_name() {
 		return student_name;
