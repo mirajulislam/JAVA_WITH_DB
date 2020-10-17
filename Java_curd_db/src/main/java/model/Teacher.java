@@ -11,17 +11,18 @@ import java.util.Date;
  */
 public class Teacher {
 	private Integer teacher_id;
-	private String teachert_name;
+	private String teacher_name;
 	private Integer age;
 	private String mobile;
 	private String address;
 	private Date date;
 	
-	public String getTeachert_name() {
-		return teachert_name;
+
+	public String getTeacher_name() {
+		return teacher_name;
 	}
-	public void setTeachert_name(String teachert_name) {
-		this.teachert_name = teachert_name;
+	public void setTeacher_name(String teacher_name) {
+		this.teacher_name = teacher_name;
 	}
 	public String getMobile() {
 		return mobile;
